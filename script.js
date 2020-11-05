@@ -22,6 +22,17 @@ alert("Li hai memorizzati?");//quando questo ciclo è stato completato apri un a
 
 var numeriInseritiUtente = new Array();//fisso l'array che conterrà i 5 numeri che il giocatore avrà inserito
 
+var timeleft = 5;
+var downloadTimer = setInterval(function(){
+  if(timeleft <= 0){
+    clearInterval(downloadTimer);
+    document.getElementById("countdown").innerHTML = "START";
+  } else {
+    document.getElementById("countdown").innerHTML = timeleft + " secondi allo START";
+  }
+  timeleft -= 1;
+}, 1000);
+
 //questa funzione è stata creata perchè dopo dovrà legarsi al comando setTimeout per ritardarne l'esecuzione di 5 secondi
 function numeriInseritiUtenteDelayed() {
   alert("Ora tocca a te!")//alert che indica al giocatore che comincia la fase di inserimento dei numeri memorizzati
@@ -30,9 +41,15 @@ function numeriInseritiUtenteDelayed() {
     numeriInseritiUtente.push(parseInt(prompt("Inserisci un numero che ti ricordi")));//all'interno dell'array numeriInseritiUtente spingimi dentro il numero che l'utente ha inserito
     alert("Hai inserito " + numeriInseritiUtente[i]);//e quindi subito dopo apri un alert di conferma che dica "hai inserito" + il numero che l'utente ha inserito
   }
+  var contatore = 0
 
+  for (var i=0; i < numeriInseritiUtente.length; i++) {//per ogni elemento dell'array ***
+    if (numeriCasualiIA.includes(numeriInseritiUtente[i])) {
+      contatore++
+    }
+  }
+
+  alert("Ti sei ricordato " + contatore + " numeri");
 }
 
-setTimeout(numeriInseritiUtenteDelayed, 5000);//ritardami l'esecuzione della funzione numeriInseritiUtenteDelayed di 5 secondi
-
-// WARNING: qui comincia la fase di verifica dei risultati
+setTimeout(numeriInseritiUtenteDelayed, 7000);//ritardami l'esecuzione della funzione numeriInseritiUtenteDelayed di 5 secondi (in realtà sono 7, si conta anche inizio e fine del countdown)
